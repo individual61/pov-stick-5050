@@ -250,7 +250,7 @@ U 1 1 5A4A569D
 P 2900 2500
 F 0 "J1" H 3100 2700 50  0000 C CNN
 F 1 "ISP_Header" H 3050 2600 50  0000 L CNN
-F 2 "Pin_Headers:Pin_Header_Straight_2x03_Pitch2.54mm" H 3150 2150 50  0001 C CNN
+F 2 "MyConnectors:ISP_Header_Pogo_2x03_Pitch2.54mm" H 3150 2150 50  0001 C CNN
 F 3 "" H 3150 2150 50  0001 C CNN
 F 4 "N/S, pogo pin" H 3050 2200 50  0000 L CNN "PN"
 	1    2900 2500
