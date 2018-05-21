@@ -3,9 +3,9 @@
   (general
     (links 70)
     (no_connects 1)
-    (area 90.475999 49.962999 208.355001 59.257001)
+    (area 89.1306 47.6528 208.355001 60.6174)
     (thickness 1.6)
-    (drawings 8)
+    (drawings 9)
     (tracks 215)
     (zones 0)
     (modules 24)
@@ -15,7 +15,7 @@
   (page A4)
   (layers
     (0 F.Cu signal)
-    (31 B.Cu signal)
+    (31 B.Cu signal hide)
     (32 B.Adhes user)
     (33 F.Adhes user)
     (34 B.Paste user)
@@ -28,12 +28,12 @@
     (41 Cmts.User user)
     (42 Eco1.User user)
     (43 Eco2.User user)
-    (44 Edge.Cuts user)
-    (45 Margin user)
-    (46 B.CrtYd user)
-    (47 F.CrtYd user)
+    (44 Edge.Cuts user hide)
+    (45 Margin user hide)
+    (46 B.CrtYd user hide)
+    (47 F.CrtYd user hide)
     (48 B.Fab user hide)
-    (49 F.Fab user hide)
+    (49 F.Fab user)
   )
 
   (setup
@@ -1245,6 +1245,9 @@
       (xy 1.704953 3.00735) (xy 1.906822 3.016138) (xy 2.135455 2.999515)) (layer B.SilkS) (width 0.01))
   )
 
+  (gr_text "WRONG FOOTPRINT" (at 121.666 46.355) (layer Dwgs.User)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
   (gr_text "POV Stick 5050 Rev A\nPaul Blackburn 2018\nGitHub: @individual61" (at 178.181 54.61) (layer B.SilkS)
     (effects (font (size 0.8 0.8) (thickness 0.15)) (justify left mirror))
   )
