@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <FastLED.h>
+#include <avr/power.h>
 
 
 
@@ -36,6 +37,10 @@ CRGB leds[NUMPIXELS];
 //therefore blue is red
 void setup()
 {
+	if(F_CPU == 16000000)
+	{
+		clock_prescale_set(clock_div_1);
+	}
 
 	pinMode(HEARTBEAT_LED, OUTPUT);
 	pinMode(BUTTON1, INPUT);
@@ -59,22 +64,23 @@ uint32_t lastTimeHeartbeat = 0;
 
 uint32_t sweepInterval = 0;
 uint32_t lastTimeSweep = 0;
-uint8_t sweepIndex = 0;
+int8_t sweepIndex = 0;
 int8_t sweepDir = 1;
 
 
 
 uint8_t heartbeatLed = 0;
 
-bool buttonState = 0;
+uint8_t buttonState = 0;
 
 void loop()
 {
 	timeNow = millis();
+	buttonState = digitalRead(BUTTON1);
+
 	if(timeNow - lastTimeHeartbeat > heartbeatInterval)
 	{
 		lastTimeHeartbeat = timeNow;
-
 		if(heartbeatLed == 0)
 		{
 			heartbeatLed = 1;
@@ -87,7 +93,7 @@ void loop()
 		}
 	}
 
-	buttonState = digitalRead(BUTTON1);
+
 
 	if(timeNow - lastTimeSweep > sweepInterval)
 	{
@@ -100,14 +106,14 @@ void loop()
 		}
 		if(sweepIndex >= NUMPIXELS)
 		{
-			sweepIndex = NUMPIXELS - 2;
+			sweepIndex = NUMPIXELS - 1;
 			sweepDir = -1;
 		}
 		for(int i = 0; i < NUMPIXELS; i++)
 		{
 			if(i == sweepIndex)
 			{
-				if(buttonState == 1)
+				if(buttonState == 0)
 				{
 					leds[i] = CRGB(16, 0, 16);
 				}
