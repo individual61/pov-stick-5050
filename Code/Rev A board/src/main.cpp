@@ -35,6 +35,23 @@ CRGB leds[NUMPIXELS];
 // Red coef is green
 // Green coef is blue
 //therefore blue is red
+
+
+uint32_t timeNow = 0;
+uint32_t heartbeatInterval = 500;
+uint32_t lastTimeHeartbeat = 0;
+
+uint32_t prog1_sweepInterval = 0;
+uint32_t prog1_lastTimeSweep = 0;
+
+uint32_t prog2_sweepInterval = 3;
+uint32_t prog2_lastTimeSweep = 0;
+
+
+uint8_t heartbeatLed = 0;
+uint8_t buttonState = 0;
+
+
 void setup()
 {
 	if(F_CPU == 16000000)
@@ -54,24 +71,56 @@ void setup()
 	{
 		leds[i] = CRGB(16, 0, 16);
 	}
+	FastLED.setBrightness(32);
 	FastLED.show();
 
 }
 
-uint32_t timeNow = 0;
-uint32_t heartbeatInterval = 500;
-uint32_t lastTimeHeartbeat = 0;
 
-uint32_t sweepInterval = 0;
-uint32_t lastTimeSweep = 0;
 int8_t sweepIndex = 0;
 int8_t sweepDir = 1;
+void program_1(void)
+{
+	sweepIndex = sweepIndex + sweepDir;
+	if(sweepIndex < 0)
+	{
+		sweepIndex = 1;
+		sweepDir = 1;
+	}
+	if(sweepIndex >= NUMPIXELS)
+	{
+		sweepIndex = NUMPIXELS - 1;
+		sweepDir = -1;
+	}
+	for(int i = 0; i < NUMPIXELS; i++)
+	{
+		if(i == sweepIndex)
+		{
+			if(buttonState == 0)
+			{
+				leds[i] = CRGB(128, 0, 128);
+			}
+			else
+			{
+				leds[i] = CRGB(0, 96, 0);
+			}
+		}
+		else
+		{
+			leds[i] = CRGB(0, 0, 0);
+		}
+
+	}
+};
 
 
-
-uint8_t heartbeatLed = 0;
-
-uint8_t buttonState = 0;
+uint8_t rainbowIncrement = 7;
+uint8_t rainbowStart = 0;
+void program_2(void)
+{
+	rainbowStart = rainbowStart + 1;
+	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
+}
 
 void loop()
 {
@@ -93,45 +142,24 @@ void loop()
 		}
 	}
 
-
-
-	if(timeNow - lastTimeSweep > sweepInterval)
+	if(!buttonState)
 	{
-		lastTimeSweep = timeNow;
-		sweepIndex = sweepIndex + sweepDir;
-		if(sweepIndex < 0)
+		if(timeNow - prog1_lastTimeSweep > prog1_sweepInterval)
 		{
-			sweepIndex = 1;
-			sweepDir = 1;
+			prog1_lastTimeSweep = timeNow;
+			program_1();
+			FastLED.show();
 		}
-		if(sweepIndex >= NUMPIXELS)
+	}
+	else
+	{
+		if(timeNow - prog2_lastTimeSweep > prog2_sweepInterval)
 		{
-			sweepIndex = NUMPIXELS - 1;
-			sweepDir = -1;
+			prog2_lastTimeSweep = timeNow;
+			program_2();
+			FastLED.show();
 		}
-		for(int i = 0; i < NUMPIXELS; i++)
-		{
-			if(i == sweepIndex)
-			{
-				if(buttonState == 0)
-				{
-					leds[i] = CRGB(16, 0, 16);
-				}
-				else
-				{
-					leds[i] = CRGB(0, 16, 0);
-				}
-			}
-			else
-			{
-				leds[i] = CRGB(0, 0, 0);
-			}
-
-		}
-		FastLED.show();
 	}
 
 
-
-	// put your main code here, to run repeatedly:
 }
