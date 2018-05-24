@@ -98,8 +98,13 @@ void setup()
 
 int8_t sweepIndex = 0;
 int8_t sweepDir = 1;
+uint8_t rainbowIncrement = 7;
+uint8_t rainbowStart = 0;
 void program_1(void)
 {
+		rainbowStart = rainbowStart + 1;
+		FastLED.setBrightness(170);
+	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);;
 	sweepIndex = sweepIndex + sweepDir;
 	if(sweepIndex < 0)
 	{
@@ -117,7 +122,7 @@ void program_1(void)
 		{
 			if(buttonState == 0)
 			{
-				leds[i] = CRGB(128, 0, 128);
+				//leds[i] = CRGB(128, 0, 128);
 			}
 			else
 			{
@@ -133,10 +138,9 @@ void program_1(void)
 };
 
 
-uint8_t rainbowIncrement = 7;
-uint8_t rainbowStart = 0;
 void program_2(void)
 {
+		FastLED.setBrightness(32);
 	rainbowStart = rainbowStart + 1;
 	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
 }
