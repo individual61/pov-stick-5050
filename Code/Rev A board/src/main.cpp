@@ -14,23 +14,23 @@
 
 
 // 11 x 10 = 110
-#define IMAGE_LENGTH 110;
-#define IMAGE_WIDTH 11;
-#define IMAGE_HEIGHT 10;
+#define IMAGE_LENGTH 110
+#define IMAGE_WIDTH 11
+#define IMAGE_HEIGHT 10
 //image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 // with row_index from 0 to (IMAGE_WIDTH - 1);
 // column_index from 0 to (IMAGE_HEIGHT - 1)
-const bool PROGMEM image[] =
+const uint8_t PROGMEM image[] =
 { 0,0,1,1,0,0,0,1,1,0,0,
-0,1,0,0,1,0,1,0,0,1,0,
-1,0,0,0,0,1,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,1,
-0,1,0,0,0,0,0,0,0,1,0,
-0,0,1,0,0,0,0,0,1,0,0,
-0,0,0,1,0,0,0,1,0,0,0,
-0,0,0,0,1,0,1,0,0,0,0,
-0,0,0,0,0,1,0,0,0,0,0};
+  0,1,0,0,1,0,1,0,0,1,0,
+  1,0,0,0,0,1,0,0,0,0,1,
+  1,0,0,0,0,0,0,0,0,0,1,
+  1,0,0,0,0,0,0,0,0,0,1,
+  0,1,0,0,0,0,0,0,0,1,0,
+  0,0,1,0,0,0,0,0,1,0,0,
+  0,0,0,1,0,0,0,1,0,0,0,
+  0,0,0,0,1,0,1,0,0,0,0,
+  0,0,0,0,0,1,0,0,0,0,0};
 
 /*
    ICSP header is, looking down on pins (not looking into female cable):
@@ -100,47 +100,34 @@ int8_t sweepIndex = 0;
 int8_t sweepDir = 1;
 uint8_t rainbowIncrement = 7;
 uint8_t rainbowStart = 0;
+uint8_t column_index = 0;
+uint8_t row_index = 0;
 void program_1(void)
 {
-		rainbowStart = rainbowStart + 1;
-		FastLED.setBrightness(170);
-	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);;
-	sweepIndex = sweepIndex + sweepDir;
-	if(sweepIndex < 0)
+	rainbowStart = rainbowStart + 1;
+	FastLED.setBrightness(32);
+		fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
+	for(int row_index = 0; row_index < IMAGE_HEIGHT; row_index++)
 	{
-		sweepIndex = 1;
-		sweepDir = 1;
-	}
-	if(sweepIndex >= NUMPIXELS)
-	{
-		sweepIndex = NUMPIXELS - 1;
-		sweepDir = -1;
-	}
-	for(int i = 0; i < NUMPIXELS; i++)
-	{
-		if(i == sweepIndex)
+		//image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
+		// with row_index from 0 to (IMAGE_HEIGHT - 1);
+		// column_index from 0 to (IMAGE_WIDTH - 1)
+		if(image[column_index*IMAGE_WIDTH + row_index]==0 )
 		{
-			if(buttonState == 0)
-			{
-				//leds[i] = CRGB(128, 0, 128);
-			}
-			else
-			{
-				leds[i] = CRGB(0, 96, 0);
-			}
+			leds[row_index] = CRGB(0, 0, 0);
 		}
-		else
-		{
-			leds[i] = CRGB(0, 0, 0);
-		}
-
+	}
+	column_index++;
+	if(column_index == IMAGE_WIDTH)
+	{
+		column_index = 0;;
 	}
 };
 
 
 void program_2(void)
 {
-		FastLED.setBrightness(32);
+	FastLED.setBrightness(32);
 	rainbowStart = rainbowStart + 1;
 	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
 }
