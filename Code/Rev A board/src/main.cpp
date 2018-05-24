@@ -20,18 +20,31 @@
 //image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 // with row_index from 0 to (IMAGE_WIDTH - 1);
 // column_index from 0 to (IMAGE_HEIGHT - 1)
-const uint8_t PROGMEM image[] =
-{ 0,0,1,1,0,0,0,1,1,0,0,
-  0,1,0,0,1,0,1,0,0,1,0,
-  1,0,0,0,0,1,0,0,0,0,1,
-  1,0,0,0,0,0,0,0,0,0,1,
-  1,0,0,0,0,0,0,0,0,0,1,
-  0,1,0,0,0,0,0,0,0,1,0,
-  0,0,1,0,0,0,0,0,1,0,0,
-  0,0,0,1,0,0,0,1,0,0,0,
-  0,0,0,0,1,0,1,0,0,0,0,
-  0,0,0,0,0,1,0,0,0,0,0};
+//heart
+const uint8_t image[] =
+   { 0,0,1,1,0,0,0,1,1,0,0,
+   0,1,0,0,1,0,1,0,0,1,0,
+   1,0,0,0,0,1,0,0,0,0,1,
+   1,0,0,0,0,0,0,0,0,0,1,
+   1,0,0,0,0,0,0,0,0,0,1,
+   0,1,0,0,0,0,0,0,0,1,0,
+   0,0,1,0,0,0,0,0,1,0,0,
+   0,0,0,1,0,0,0,1,0,0,0,
+   0,0,0,0,1,0,1,0,0,0,0,
+   0,0,0,0,0,1,0,0,0,0,0};
 
+/*const boolean image[] =
+{  1,1,0,1,0,1,0,1,0,1,1,
+   1,0,1,0,1,0,1,0,1,0,1,
+   1,1,0,1,0,1,0,1,0,1,1,
+   1,0,1,0,1,0,1,0,1,0,1,
+   1,1,0,1,0,1,0,1,0,1,1,
+   1,0,1,0,1,0,1,0,1,0,1,
+   1,1,0,1,0,1,0,1,0,1,1,
+   1,0,1,0,1,0,1,0,1,0,1,
+   1,1,0,1,0,1,0,1,0,1,1,
+   1,0,1,0,1,0,1,0,1,0,1};
+*/
 /*
    ICSP header is, looking down on pins (not looking into female cable):
 
@@ -106,7 +119,7 @@ void program_1(void)
 {
 	rainbowStart = rainbowStart + 1;
 	FastLED.setBrightness(32);
-		fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
+	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
 	for(int row_index = 0; row_index < IMAGE_HEIGHT; row_index++)
 	{
 		//image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
@@ -116,6 +129,10 @@ void program_1(void)
 		{
 			leds[row_index] = CRGB(0, 0, 0);
 		}
+  //  else
+  //  {
+//      leds[row_index] = CRGB(32, 0, 32);
+  //  }
 	}
 	column_index++;
 	if(column_index == IMAGE_WIDTH)
