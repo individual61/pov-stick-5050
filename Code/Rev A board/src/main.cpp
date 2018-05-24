@@ -15,13 +15,13 @@
 
 // 11 x 10 = 110
 #define IMAGE_LENGTH 110
-#define IMAGE_WIDTH 11
+#define IMAGE_WIDTH 10
 #define IMAGE_HEIGHT 10
 //image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 // with row_index from 0 to (IMAGE_WIDTH - 1);
 // column_index from 0 to (IMAGE_HEIGHT - 1)
 //heart
-const uint8_t image[] =
+/*const uint8_t image[] =
    { 0,0,1,1,0,0,0,1,1,0,0,
    0,1,0,0,1,0,1,0,0,1,0,
    1,0,0,0,0,1,0,0,0,0,1,
@@ -32,9 +32,9 @@ const uint8_t image[] =
    0,0,0,1,0,0,0,1,0,0,0,
    0,0,0,0,1,0,1,0,0,0,0,
    0,0,0,0,0,1,0,0,0,0,0};
-
+ */
 /*const boolean image[] =
-{  1,1,0,1,0,1,0,1,0,1,1,
+   {  1,1,0,1,0,1,0,1,0,1,1,
    1,0,1,0,1,0,1,0,1,0,1,
    1,1,0,1,0,1,0,1,0,1,1,
    1,0,1,0,1,0,1,0,1,0,1,
@@ -44,7 +44,34 @@ const uint8_t image[] =
    1,0,1,0,1,0,1,0,1,0,1,
    1,1,0,1,0,1,0,1,0,1,1,
    1,0,1,0,1,0,1,0,1,0,1};
-*/
+ */
+//heart transp
+/*const uint8_t image[] =
+   {0,0,1,1,1,0,0,0,0,0,
+   0,1,0,0,0,1,0,0,0,0,
+   1,0,0,0,0,0,1,0,0,0,
+   1,0,0,0,0,0,0,1,0,0,
+   0,1,0,0,0,0,0,0,1,0,
+   0,0,1,0,0,0,0,0,0,1,
+   0,1,0,0,0,0,0,0,1,0,
+   1,0,0,0,0,0,0,1,0,0,
+   1,0,0,0,0,0,1,0,0,0,
+   0,1,0,0,0,1,0,0,0,0,
+   0,0,1,1,1,0,0,0,0,0};
+ */
+//transp and flip
+const uint8_t image[] =
+{ 0,0,0,0,0,1,1,1,0,0,
+  0,0,0,0,1,0,0,0,1,0,
+  0,0,0,1,0,0,0,0,0,1,
+  0,0,1,0,0,0,0,0,0,1,
+  0,1,0,0,0,0,0,0,1,0,
+  1,0,0,0,0,0,0,1,0,0,
+  0,1,0,0,0,0,0,0,1,0,
+  0,0,1,0,0,0,0,0,0,1,
+  0,0,0,1,0,0,0,0,0,1,
+  0,0,0,0,1,0,0,0,1,0,
+  0,0,0,0,0,1,1,1,0,0};
 /*
    ICSP header is, looking down on pins (not looking into female cable):
 
@@ -118,7 +145,7 @@ uint8_t row_index = 0;
 void program_1(void)
 {
 	rainbowStart = rainbowStart + 1;
-	FastLED.setBrightness(32);
+	FastLED.setBrightness(96);
 	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
 	for(int row_index = 0; row_index < IMAGE_HEIGHT; row_index++)
 	{
@@ -129,10 +156,10 @@ void program_1(void)
 		{
 			leds[row_index] = CRGB(0, 0, 0);
 		}
-  //  else
-  //  {
+		//  else
+		//  {
 //      leds[row_index] = CRGB(32, 0, 32);
-  //  }
+		//  }
 	}
 	column_index++;
 	if(column_index == IMAGE_WIDTH)
