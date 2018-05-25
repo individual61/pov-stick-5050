@@ -60,18 +60,19 @@
    0,0,1,1,1,0,0,0,0,0};
  */
 //transp and flip
-const uint8_t image[] =
-{ 0,0,0,0,0,1,1,1,0,0,
-  0,0,0,0,1,0,0,0,1,0,
-  0,0,0,1,0,0,0,0,0,1,
-  0,0,1,0,0,0,0,0,0,1,
-  0,1,0,0,0,0,0,0,1,0,
-  1,0,0,0,0,0,0,1,0,0,
-  0,1,0,0,0,0,0,0,1,0,
-  0,0,1,0,0,0,0,0,0,1,
-  0,0,0,1,0,0,0,0,0,1,
-  0,0,0,0,1,0,0,0,1,0,
-  0,0,0,0,0,1,1,1,0,0};
+const uint8_t PROGMEM image[][IMAGE_HEIGHT] =
+{ {0,0,0,0,0,1,1,1,0,0},
+  {0,0,0,0,1,0,0,0,1,0},
+  {0,0,0,1,0,0,0,0,0,1},
+  {0,0,1,0,0,0,0,0,0,1},
+  {0,1,0,0,0,0,0,0,1,0},
+  {1,0,0,0,0,0,0,1,0,0},
+  {0,1,0,0,0,0,0,0,1,0},
+  {0,0,1,0,0,0,0,0,0,1},
+  {0,0,0,1,0,0,0,0,0,1},
+  {0,0,0,0,1,0,0,0,1,0},
+  {0,0,0,0,0,1,1,1,0,0}
+  };
 /*
    ICSP header is, looking down on pins (not looking into female cable):
 
@@ -152,7 +153,8 @@ void program_1(void)
 		//image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 		// with row_index from 0 to (IMAGE_HEIGHT - 1);
 		// column_index from 0 to (IMAGE_WIDTH - 1)
-		if(image[column_index*IMAGE_WIDTH + row_index]==0 )
+    uint8_t image_value = pgm_read_byte(&(image[column_index][row_index]));
+		if(image_value==0 )
 		{
 			leds[row_index] = CRGB(0, 0, 0);
 		}
