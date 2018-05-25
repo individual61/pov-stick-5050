@@ -233,11 +233,11 @@ void program_1(void)
 		}
     if(image_value==2 )
     {
-      leds[row_index] = CRGB(32, 32, 32);
+      leds[row_index] = CRGB(60, 60,60);
     }
     if(image_value==1 )
     {
-      leds[row_index] = CRGB(32, 0, 0);
+      leds[row_index] = CRGB(130, 0, 130);
     }
 		//  else
 		//  {
