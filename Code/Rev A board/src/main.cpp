@@ -13,10 +13,10 @@
 #define HEARTBEAT_LED 3
 
 
-// 11 x 10 = 110
-#define IMAGE_LENGTH 110
-#define IMAGE_WIDTH 13
-#define IMAGE_HEIGHT 10
+
+#define IMAGE1_WIDTH 15
+#define IMAGE2_WIDTH 22
+
 //image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 // with row_index from 0 to (IMAGE_WIDTH - 1);
 // column_index from 0 to (IMAGE_HEIGHT - 1)
@@ -60,21 +60,67 @@
    0,0,1,1,1,0,0,0,0,0};
  */
 //transp and flip
-const uint8_t PROGMEM image[][IMAGE_HEIGHT] =
-{ {0,0,0,0,0,1,1,1,0,0},
-  {0,0,0,0,1,0,0,0,1,0},
-  {0,0,0,1,0,0,0,0,0,1},
-  {0,0,1,0,0,0,0,0,0,1},
-  {0,1,0,0,0,0,0,0,1,0},
-  {1,0,0,0,0,0,0,1,0,0},
-  {0,1,0,0,0,0,0,0,1,0},
-  {0,0,1,0,0,0,0,0,0,1},
-  {0,0,0,1,0,0,0,0,0,1},
-  {0,0,0,0,1,0,0,0,1,0},
-  {0,0,0,0,0,1,1,1,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0}
-  };
+/*const uint8_t PROGMEM image1[][10] =
+   { {0,0,0,0,0,1,1,1,0,0},
+   {0,0,0,0,1,0,0,0,1,0},
+   {0,0,0,1,0,0,0,0,0,1},
+   {0,0,1,0,0,0,0,0,0,1},
+   {0,1,0,0,0,0,0,0,1,0},
+   {1,0,0,0,0,0,0,1,0,0},
+   {0,1,0,0,0,0,0,0,1,0},
+   {0,0,1,0,0,0,0,0,0,1},
+   {0,0,0,1,0,0,0,0,0,1},
+   {0,0,0,0,1,0,0,0,1,0},
+   {0,0,0,0,0,1,1,1,0,0},
+   {0,0,0,0,0,0,0,0,0,0},
+   {0,0,0,0,0,0,0,0,0,0}};*/
+
+//filled
+const uint8_t PROGMEM image1[][10] =
+{
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,1,1,1,0,0},
+	{0,0,0,0,1,1,1,1,1,0},
+	{0,0,0,1,1,1,1,1,1,1},
+	{0,0,1,1,1,1,1,1,1,1},
+	{0,1,1,1,1,1,1,1,1,0},
+	{1,1,1,1,1,1,1,1,0,0},
+	{0,1,1,1,1,1,1,1,1,0},
+	{0,0,1,1,1,1,1,1,1,1},
+	{0,0,0,1,1,1,1,1,1,1},
+	{0,0,0,0,1,1,1,1,1,0},
+	{0,0,0,0,0,1,1,1,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0}
+};
+
+// that's a penis.gif
+/*const uint8_t PROGMEM image2[][10] =
+   {
+        {0,1,1,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,1,0},
+        {1,0,0,0,0,1,0,0,1,0},
+        {1,0,0,0,0,1,0,0,1,0},
+        {1,0,0,0,1,0,0,0,1,0},
+        {0,1,1,1,0,1,0,0,0,1},
+        {1,0,0,0,0,1,0,0,0,1},
+        {1,0,0,0,0,1,0,0,0,1},
+        {1,0,0,0,0,1,0,0,0,1},
+        {0,1,0,0,1,1,0,0,0,1},
+        {0,0,1,1,0,1,0,0,0,1},
+        {0,0,0,0,0,1,0,0,0,1},
+        {0,0,0,0,0,1,0,0,0,1},
+        {0,0,0,0,0,1,0,0,1,1},
+        {0,0,0,0,0,1,1,1,0,1},
+        {0,0,0,0,1,0,0,0,0,1},
+        {0,0,0,0,1,0,0,0,0,1},
+        {0,0,0,0,1,0,0,0,0,1},
+        {0,0,0,0,1,1,1,0,0,1},
+        {0,0,0,0,1,0,0,0,0,1},
+        {0,0,0,0,1,0,0,0,1,0},
+        {0,0,0,0,0,1,1,1,0,0}
+   };*/
 /*
    ICSP header is, looking down on pins (not looking into female cable):
 
@@ -150,12 +196,12 @@ void program_1(void)
 	rainbowStart = rainbowStart + 1;
 	FastLED.setBrightness(96);
 	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
-	for(int row_index = 0; row_index < IMAGE_HEIGHT; row_index++)
+	for(int row_index = 0; row_index < 10; row_index++)
 	{
 		//image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 		// with row_index from 0 to (IMAGE_HEIGHT - 1);
 		// column_index from 0 to (IMAGE_WIDTH - 1)
-    uint8_t image_value = pgm_read_byte(&(image[column_index][row_index]));
+		uint8_t image_value = pgm_read_byte(&(image1[column_index][row_index]));
 		if(image_value==0 )
 		{
 			leds[row_index] = CRGB(0, 0, 0);
@@ -166,7 +212,7 @@ void program_1(void)
 		//  }
 	}
 	column_index++;
-	if(column_index == IMAGE_WIDTH)
+	if(column_index == IMAGE1_WIDTH)
 	{
 		column_index = 0;;
 	}
