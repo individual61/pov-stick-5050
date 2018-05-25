@@ -146,8 +146,10 @@ CRGB leds[NUMPIXELS];
 
 
 uint32_t timeNow = 0;
-uint32_t heartbeatInterval = 500;
-uint32_t lastTimeHeartbeat = 0;
+uint32_t heartbeatOffInterval = 950;
+uint32_t heartbeatOnInterval = 10;
+uint32_t lastTimeHeartbeatOn = 0;
+uint32_t lastTimeHeartbeatOff = 0;
 
 uint32_t prog1_sweepInterval = 0;
 uint32_t prog1_lastTimeSweep = 0;
@@ -193,8 +195,8 @@ uint8_t column_index = 0;
 uint8_t row_index = 0;
 void program_1(void)
 {
-	rainbowStart = rainbowStart + 1;
-	FastLED.setBrightness(96);
+	rainbowStart = rainbowStart -1;
+	FastLED.setBrightness(180);
 	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
 	for(int row_index = 0; row_index < 10; row_index++)
 	{
@@ -222,7 +224,7 @@ void program_1(void)
 void program_2(void)
 {
 	FastLED.setBrightness(32);
-	rainbowStart = rainbowStart + 1;
+	rainbowStart = rainbowStart - 1;
 	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
 }
 
@@ -230,21 +232,27 @@ void loop()
 {
 	timeNow = millis();
 	buttonState = digitalRead(BUTTON1);
-
-	if(timeNow - lastTimeHeartbeat > heartbeatInterval)
+	if(heartbeatLed == 1)
 	{
-		lastTimeHeartbeat = timeNow;
-		if(heartbeatLed == 0)
+		if(timeNow - lastTimeHeartbeatOn > heartbeatOnInterval)
 		{
-			heartbeatLed = 1;
-			digitalWrite(HEARTBEAT_LED, LOW);
-		}
-		else
-		{
+			lastTimeHeartbeatOff = timeNow;
 			heartbeatLed = 0;
+			digitalWrite(HEARTBEAT_LED, LOW);
+
+		}
+	}
+	if(heartbeatLed == 0)
+	{
+		if(timeNow - lastTimeHeartbeatOff > heartbeatOffInterval)
+		{
+			lastTimeHeartbeatOn = timeNow;
+			heartbeatLed = 1;
 			digitalWrite(HEARTBEAT_LED, HIGH);
 		}
 	}
+
+
 
 	if(!buttonState)
 	{
