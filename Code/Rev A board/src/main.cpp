@@ -15,50 +15,10 @@
 
 
 #define IMAGE1_WIDTH 17
-#define IMAGE2_WIDTH 22
+#define IMAGE2_WIDTH 17
 
-//image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
-// with row_index from 0 to (IMAGE_WIDTH - 1);
-// column_index from 0 to (IMAGE_HEIGHT - 1)
-//heart
-/*const uint8_t image[] =
-   { 0,0,1,1,0,0,0,1,1,0,0,
-   0,1,0,0,1,0,1,0,0,1,0,
-   1,0,0,0,0,1,0,0,0,0,1,
-   1,0,0,0,0,0,0,0,0,0,1,
-   1,0,0,0,0,0,0,0,0,0,1,
-   0,1,0,0,0,0,0,0,0,1,0,
-   0,0,1,0,0,0,0,0,1,0,0,
-   0,0,0,1,0,0,0,1,0,0,0,
-   0,0,0,0,1,0,1,0,0,0,0,
-   0,0,0,0,0,1,0,0,0,0,0};
- */
-/*const boolean image[] =
-   {  1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1};
- */
-//heart transp
-/*const uint8_t image[] =
-   {0,0,1,1,1,0,0,0,0,0,
-   0,1,0,0,0,1,0,0,0,0,
-   1,0,0,0,0,0,1,0,0,0,
-   1,0,0,0,0,0,0,1,0,0,
-   0,1,0,0,0,0,0,0,1,0,
-   0,0,1,0,0,0,0,0,0,1,
-   0,1,0,0,0,0,0,0,1,0,
-   1,0,0,0,0,0,0,1,0,0,
-   1,0,0,0,0,0,1,0,0,0,
-   0,1,0,0,0,1,0,0,0,0,
-   0,0,1,1,1,0,0,0,0,0};
- */
+#define DEBOUNCEDELAY 100
+
 //transp and flip
 /*const uint8_t PROGMEM image1[][10] =
    { {0,0,0,0,0,1,1,1,0,0},
@@ -113,6 +73,28 @@ const uint8_t PROGMEM image1[][10] =
 	{0,0,0,2,1,1,1,1,1,2},
 	{0,0,0,0,2,1,1,1,2,0},
 	{0,0,0,0,0,2,2,2,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0}
+};
+
+// last chance penis
+const uint8_t PROGMEM image2[][10] =
+{
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0},
+	{1,0,0,0,0,0,0,0,0,1},
+	{0,1,0,0,0,0,0,0,1,0},
+	{0,0,1,0,0,0,0,1,0,0},
+	{0,0,0,1,0,0,1,0,0,0},
+	{0,0,0,0,1,1,0,0,0,0},
+	{0,0,0,0,1,1,0,0,0,0},
+	{0,0,0,0,1,1,0,0,0,0},
+	{0,0,0,1,0,0,1,0,0,0},
+	{0,0,1,0,0,0,0,1,0,0},
+	{0,1,0,0,0,0,0,0,1,0},
+	{1,0,0,0,0,0,0,0,0,1},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0}
@@ -182,7 +164,8 @@ uint32_t prog2_lastTimeSweep = 0;
 
 
 uint8_t heartbeatLed = 0;
-uint8_t buttonState = 0;
+
+
 
 
 void setup()
@@ -209,6 +192,25 @@ void setup()
 
 }
 
+uint8_t buttonPrevState = 0;
+uint8_t buttonState = 0;
+uint32_t timeNowbutton = 0;
+uint32_t lastTimePressedButton = 0;
+uint8_t displayAlternateImage = 0;
+void checkButton(void)
+{
+	bool buttonState = digitalRead(BUTTON1);
+	if (buttonState == 0) // pressed
+	{
+		timeNowbutton = millis();
+		if (timeNowbutton - lastTimePressedButton > DEBOUNCEDELAY)
+		{
+			displayAlternateImage = 1;
+			lastTimePressedButton = timeNowbutton;
+		}
+	}
+}
+
 
 int8_t sweepIndex = 0;
 int8_t sweepDir = 1;
@@ -226,43 +228,47 @@ void program_1(void)
 		//image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 		// with row_index from 0 to (IMAGE_HEIGHT - 1);
 		// column_index from 0 to (IMAGE_WIDTH - 1)
-		uint8_t image_value = pgm_read_byte(&(image1[column_index][row_index]));
+		uint8_t image_value = 0;
+		if(displayAlternateImage == 0)
+		{
+			image_value = pgm_read_byte(&(image1[column_index][row_index]));
+		}
+		else
+		{
+			image_value = pgm_read_byte(&(image2[column_index][row_index]));
+		}
 		if(image_value==0 )
 		{
 			leds[row_index] = CRGB(0, 0, 0);
 		}
-    if(image_value==2 )
-    {
-      leds[row_index] = CRGB(60, 60,60);
-    }
-    if(image_value==1 )
-    {
-      leds[row_index] = CRGB(130, 0, 130);
-    }
-		//  else
-		//  {
-//      leds[row_index] = CRGB(32, 0, 32);
-		//  }
+		if(image_value==2 )
+		{
+			leds[row_index] = CRGB(60, 60,60);
+		}
+		if(image_value==1 )
+		{
+			leds[row_index] = CRGB(130, 0, 130);
+		}
+
 	}
 	column_index++;
+	// image done
 	if(column_index == IMAGE1_WIDTH)
 	{
+    if(displayAlternateImage == 1)
+    {
+      displayAlternateImage = 0;
+    }
 		column_index = 0;;
 	}
 };
 
 
-void program_2(void)
-{
-	FastLED.setBrightness(10);
-	rainbowStart = rainbowStart - 1;
-	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
-}
 
 void loop()
 {
 	timeNow = millis();
-	buttonState = digitalRead(BUTTON1);
+	checkButton();
 	if(heartbeatLed == 1)
 	{
 		if(timeNow - lastTimeHeartbeatOn > heartbeatOnInterval)
@@ -285,24 +291,11 @@ void loop()
 
 
 
-	if(!buttonState)
-	{
-		if(timeNow - prog1_lastTimeSweep > prog1_sweepInterval)
-		{
-			prog1_lastTimeSweep = timeNow;
-			program_1();
-			FastLED.show();
-		}
-	}
-	else
-	{
-		if(timeNow - prog2_lastTimeSweep > prog2_sweepInterval)
-		{
-			prog2_lastTimeSweep = timeNow;
-			program_2();
-			FastLED.show();
-		}
-	}
 
-
+	if(timeNow - prog1_lastTimeSweep > prog1_sweepInterval)
+	{
+		prog1_lastTimeSweep = timeNow;
+		program_1();
+		FastLED.show();
+	}
 }
