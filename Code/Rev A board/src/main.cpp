@@ -14,7 +14,7 @@
 
 
 
-#define IMAGE1_WIDTH 15
+#define IMAGE1_WIDTH 17
 #define IMAGE2_WIDTH 22
 
 //image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
@@ -78,6 +78,7 @@
 //filled
 const uint8_t PROGMEM image1[][10] =
 {
+  	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,1,1,1,0,0},
@@ -92,7 +93,8 @@ const uint8_t PROGMEM image1[][10] =
 	{0,0,0,0,1,1,1,1,1,0},
 	{0,0,0,0,0,1,1,1,0,0},
 	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0}
+	{0,0,0,0,0,0,0,0,0,0},
+  	{0,0,0,0,0,0,0,0,0,0}
 };
 
 // that's a penis.gif
@@ -181,7 +183,7 @@ void setup()
 	{
 		leds[i] = CRGB(16, 0, 16);
 	}
-	FastLED.setBrightness(32);
+	FastLED.setBrightness(10);
 	FastLED.show();
 
 }
@@ -223,7 +225,7 @@ void program_1(void)
 
 void program_2(void)
 {
-	FastLED.setBrightness(32);
+	FastLED.setBrightness(10);
 	rainbowStart = rainbowStart - 1;
 	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
 }
