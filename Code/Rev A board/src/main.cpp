@@ -15,7 +15,7 @@
 
 // 11 x 10 = 110
 #define IMAGE_LENGTH 110
-#define IMAGE_WIDTH 10
+#define IMAGE_WIDTH 13
 #define IMAGE_HEIGHT 10
 //image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
 // with row_index from 0 to (IMAGE_WIDTH - 1);
@@ -71,7 +71,9 @@ const uint8_t PROGMEM image[][IMAGE_HEIGHT] =
   {0,0,1,0,0,0,0,0,0,1},
   {0,0,0,1,0,0,0,0,0,1},
   {0,0,0,0,1,0,0,0,1,0},
-  {0,0,0,0,0,1,1,1,0,0}
+  {0,0,0,0,0,1,1,1,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+    {0,0,0,0,0,0,0,0,0,0}
   };
 /*
    ICSP header is, looking down on pins (not looking into female cable):
