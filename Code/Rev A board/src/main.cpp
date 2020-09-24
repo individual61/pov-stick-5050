@@ -2,7 +2,7 @@
 #include <FastLED.h>
 #include <avr/power.h>
 
-
+// STICK 2 PROGRAM: SLOW RAINBOW THEN HEARTS
 
 #define NUMPIXELS 10     // Number of LEDs in strig
 #define CLOCK_PIN 2     // "Pin 2" in Arduino is chip pin #7
