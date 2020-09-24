@@ -1,79 +1,43 @@
+// This is where we chose what version of the code gets compiled.
+#define BUILD_STICK_1
+//#define BUILD_STICK_2
+//#define BUILD_STICK_3
+
+
+
+/*
+   ICSP header is, looking down on pins (not looking into female cable):
+
+   1  MISO    2 VCC
+   3 SCK      4 MOSI
+   5 RST      6 GND
+
+   ATTiny85:
+
+   1 RST   5 VCC
+   2 NC    6 SCK
+   3 NC    7 MISO
+   4 GND   8 MOSI
+
+ */
+
+
+
+
 #include <Arduino.h>
 #include <FastLED.h>
 #include <avr/power.h>
+#include "stick1/parameters_1.h"
+#include "stick2/parameters_2.h"
+#include "parameters_common.h"
 
 // STICK 2 PROGRAM: SLOW RAINBOW THEN HEARTS
 
-#define NUMPIXELS 10     // Number of LEDs in strig
-#define CLOCK_PIN 2     // "Pin 2" in Arduino is chip pin #7
-#define DATA_PIN 0      // "Pin 0" in Arduino is chip pin #5
-#define COLOR_ORDER RBG // my strip is BGR
-#define CORRECTION TypicalLEDStrip
-#define BUTTON1 4
-#define HEARTBEAT_LED 3
 
 
 
-#define IMAGE1_WIDTH 17
-#define IMAGE2_WIDTH 22
 
-//image[column_index*IMAGE_WIDTH + row_index]; argument will go from 0 to (IMAGE_WIDTH*IMAGE_HEIGHT -1)
-// with row_index from 0 to (IMAGE_WIDTH - 1);
-// column_index from 0 to (IMAGE_HEIGHT - 1)
-//heart
-/*const uint8_t image[] =
-   { 0,0,1,1,0,0,0,1,1,0,0,
-   0,1,0,0,1,0,1,0,0,1,0,
-   1,0,0,0,0,1,0,0,0,0,1,
-   1,0,0,0,0,0,0,0,0,0,1,
-   1,0,0,0,0,0,0,0,0,0,1,
-   0,1,0,0,0,0,0,0,0,1,0,
-   0,0,1,0,0,0,0,0,1,0,0,
-   0,0,0,1,0,0,0,1,0,0,0,
-   0,0,0,0,1,0,1,0,0,0,0,
-   0,0,0,0,0,1,0,0,0,0,0};
- */
-/*const boolean image[] =
-   {  1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1,
-   1,1,0,1,0,1,0,1,0,1,1,
-   1,0,1,0,1,0,1,0,1,0,1};
- */
-//heart transp
-/*const uint8_t image[] =
-   {0,0,1,1,1,0,0,0,0,0,
-   0,1,0,0,0,1,0,0,0,0,
-   1,0,0,0,0,0,1,0,0,0,
-   1,0,0,0,0,0,0,1,0,0,
-   0,1,0,0,0,0,0,0,1,0,
-   0,0,1,0,0,0,0,0,0,1,
-   0,1,0,0,0,0,0,0,1,0,
-   1,0,0,0,0,0,0,1,0,0,
-   1,0,0,0,0,0,1,0,0,0,
-   0,1,0,0,0,1,0,0,0,0,
-   0,0,1,1,1,0,0,0,0,0};
- */
-//transp and flip
-/*const uint8_t PROGMEM image1[][10] =
-   { {0,0,0,0,0,1,1,1,0,0},
-   {0,0,0,0,1,0,0,0,1,0},
-   {0,0,0,1,0,0,0,0,0,1},
-   {0,0,1,0,0,0,0,0,0,1},
-   {0,1,0,0,0,0,0,0,1,0},
-   {1,0,0,0,0,0,0,1,0,0},
-   {0,1,0,0,0,0,0,0,1,0},
-   {0,0,1,0,0,0,0,0,0,1},
-   {0,0,0,1,0,0,0,0,0,1},
-   {0,0,0,0,1,0,0,0,1,0},
-   {0,0,0,0,0,1,1,1,0,0},
-   {0,0,0,0,0,0,0,0,0,0},
-   {0,0,0,0,0,0,0,0,0,0}};*/
+
 
 //filled
 const uint8_t PROGMEM image1[][10] =
@@ -123,21 +87,7 @@ const uint8_t PROGMEM image1[][10] =
         {0,0,0,0,1,0,0,0,1,0},
         {0,0,0,0,0,1,1,1,0,0}
    };*/
-/*
-   ICSP header is, looking down on pins (not looking into female cable):
 
-   1  MISO    2 VCC
-   3 SCK      4 MOSI
-   5 RST      6 GND
-
-   ATTiny85:
-
-   1 RST   5 VCC
-   2 NC    6 SCK
-   3 NC    7 MISO
-   4 GND   8 MOSI
-
- */
 
 CRGB leds[NUMPIXELS];
 

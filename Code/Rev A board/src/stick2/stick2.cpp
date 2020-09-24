@@ -1,6 +1,4 @@
-#include <Arduino.h>
-#include <FastLED.h>
-#include <avr/power.h>
+#ifdef BUILD_STICK_2
 
 // STICK 2 PROGRAM: SLOW RAINBOW THEN HEARTS
 
@@ -277,3 +275,5 @@ void loop()
 
 
 }
+
+#endif
