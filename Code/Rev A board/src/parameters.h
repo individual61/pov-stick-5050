@@ -2,8 +2,6 @@
 #define PARAMETERS_COMMON_H
 
 
-
-
 #define NUMPIXELS 10     // Number of LEDs in strig
 #define CLOCK_PIN 2     // "Pin 2" in Arduino is chip pin #7
 #define DATA_PIN 0      // "Pin 0" in Arduino is chip pin #5
@@ -19,10 +17,7 @@ void loop_1();
 void loop_2(void);
 void loop_3(void);
 
-//                                                                  
-//                                                                  
-//                                                                  
-//                                                                  
+
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //
@@ -38,12 +33,7 @@ void loop_3(void);
 //                                                                  
 // 
 
-//#ifndef PARAMETERS_1_H
-//#define PARAMETERS_1_H
-
 #ifdef BUILD_STICK_1
-
-//#include "parameters_common.h"
 
 #define IMAGE1_WIDTH 17
 #define IMAGE2_WIDTH 17
@@ -121,14 +111,11 @@ const uint8_t PROGMEM image2[][10] =
         {0,0,0,0,0,1,1,1,0,0}
    };*/
 
-#endif // #ifdef BUILD_STICK_1
-//#endif // #ifndef PARAMETERS_1_H
+#endif
 
 
-//                                                                  
-//                                                                  
-//                                                                  
-//                                                                  
+
+
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //
@@ -144,15 +131,9 @@ const uint8_t PROGMEM image2[][10] =
 //                                                                  
 //   
 
-//#ifndef PARAMETERS_2_H
-//#define PARAMETERS_2_H
-
 #ifdef BUILD_STICK_2
 
 
-
-
-//#include "parameters_common.h"
 
 #define IMAGE1_WIDTH 17
 #define IMAGE2_WIDTH 22
@@ -209,18 +190,14 @@ const uint8_t PROGMEM image1[][10] =
 
 
 
-#endif // #ifdef BUILD_STICK_2
-//#endif // #ifndef PARAMETERS_2_H
+#endif 
 
 
 
 
 
 
-//                                                                  
-//                                                                  
-//                                                                  
-//                                                                  
+                                                                
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //                                  ____                            

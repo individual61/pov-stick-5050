@@ -52,10 +52,7 @@ uint8_t heartbeatLed = 0;
 
 CRGB leds[NUMPIXELS];
 
-//                                                                  
-//                                                                  
-//                                                                  
-//                                                                  
+                                                        
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //
@@ -69,58 +66,16 @@ CRGB leds[NUMPIXELS];
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //                                                                  
-// 
-
+//                   failed penis, constant flashing 
 
 
 #ifdef BUILD_STICK_1
-
-//#include "parameters_common.h"
-//#include "parameters_1.h"
-
-
-// failed penis, constant flashing 
-
-
-
-
-/*
-   ICSP header is, looking down on pins (not looking into female cable):
-
-   1  MISO    2 VCC
-   3 SCK      4 MOSI
-   5 RST      6 GND
-
-   ATTiny85:
-
-   1 RST   5 VCC
-   2 NC    6 SCK
-   3 NC    7 MISO
-   4 GND   8 MOSI
-
- */
-
-
-// with BGR
-// Red coef is green
-// Green coef is blue
-//therefore blue is red
-
-
-//uint32_t timeNow = 0; //prob dont need to uncomment if reverting
-
 
 uint32_t prog1_sweepInterval = 0;
 uint32_t prog1_lastTimeSweep = 0;
 
 uint32_t prog2_sweepInterval = 3;
 uint32_t prog2_lastTimeSweep = 0;
-
-
-
-
-
-
 
 uint8_t buttonPrevState = 0;
 uint8_t buttonState = 0;
@@ -141,8 +96,6 @@ void checkButton(void)
 	}
 }
 
-
-//int8_t sweepIndex = 0;
 int8_t sweepDir = 1;
 uint8_t rainbowIncrement = 7;
 uint8_t rainbowStart = 0;
@@ -199,8 +152,6 @@ void program_1(void)
 	}
 };
 
-
-
 void loop_1()
 {
 	timeNow = millis();
@@ -214,20 +165,9 @@ void loop_1()
 	}
 }
 
-
-
-
 #endif
 
-
-
-
-
-
-//                                                                  
-//                                                                  
-//                                                                  
-//                                                                  
+                                                                
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //
@@ -241,17 +181,10 @@ void loop_1()
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //                                                                  
-//                                                                  
-
+//                      SLOW RAINBOW THEN HEARTS                                       
 
 
 #ifdef BUILD_STICK_2
-
-
-//#include "parameters_common.h"
-//#include "parameters_2.h"
-
-// STICK 2 PROGRAM: SLOW RAINBOW THEN HEARTS
 
 uint32_t prog1_sweepInterval = 0;
 uint32_t prog1_lastTimeSweep = 0;
@@ -294,7 +227,6 @@ void program_1(void)
 	}
 };
 
-
 void program_2(void)
 {
 	FastLED.setBrightness(10);
@@ -324,16 +256,11 @@ void loop_2(void)
 			FastLED.show();
 		}
 	}
-
-
 }
 
 #endif
 
-//                                                                  
-//                                                                  
-//                                                                  
-//                                                                  
+                                                                
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //                                  ____                            
@@ -347,26 +274,17 @@ void loop_2(void)
 //                                                                  
 //                                          
 
+#ifdef BUILD_STICK_3
+
+void loop_3(void)
+{
 
 
+}
 
+#endif
 
-
-
-
-
-
-
-
-
-
-
-
-
-//                                                                  
-//                                                                  
-//                                                                  
-//                                                                  
+                                                                
 //    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
 //   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
 //
@@ -407,13 +325,10 @@ void setup()
 
 }
 
-
 void loop()
 {
-	loop_1();
 	timeNow = millis();
-	
-	
+
 	// Beat heartbeat LED
 	if(heartbeatLed == 1)
 	{
@@ -437,7 +352,7 @@ void loop()
 
 
 #ifdef BUILD_STICK_1
-//loop_1();
+loop_1();
 #endif
 
 #ifdef BUILD_STICK_2
@@ -447,6 +362,5 @@ loop_2();
 #ifdef BUILD_STICK_3
 loop_3();
 #endif
-
 
 }
