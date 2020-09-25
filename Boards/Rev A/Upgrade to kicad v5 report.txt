@@ -1,0 +1,73 @@
+Info: Backing up file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\sym-lib-table” to file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\rescue-backup\sym-lib-table-2020-09-25-14-52-16”.
+Info: Backing up file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\POV-Stick-5050 Rev A.sch” to file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\rescue-backup\POV-Stick-5050 Rev A-2020-09-25-14-52-16.sch”.
+Info: Backing up file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\POV-Stick-5050 Rev A.pro” to file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\rescue-backup\POV-Stick-5050 Rev A-2020-09-25-14-52-16.pro”.
+Info: Backing up file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\POV-Stick-5050 Rev A-cache.lib” to file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\rescue-backup\POV-Stick-5050 Rev A-cache-2020-09-25-14-52-16.lib”.
+Info: Backing up file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\POV-Stick-5050 Rev A-rescue.lib” to file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\rescue-backup\POV-Stick-5050 Rev A-rescue-2020-09-25-14-52-16.lib”.
+Info: Backing up file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\POV-Stick-5050 Rev A-rescue.dcm” to file “D:\Google Drive\Projects\Arduino\POV-Stick\pov-stick-5050\Boards\Rev A\rescue-backup\POV-Stick-5050 Rev A-rescue-2020-09-25-14-52-16.dcm”.
+Info: Adding library “POV-Stick-5050-Rev-A-rescue”, file “${KIPRJMOD}/POV-Stick-5050 Rev A-rescue.lib” to project symbol library table.
+Info: Adding library “icspheader”, file “${KIPRJMOD}/lib_sch/icspheader.lib” to project symbol library table.
+Info: Adding library “sw_dip_x01_vert”, file “${KIPRJMOD}/lib_sch/sw_dip_x01_vert.lib” to project symbol library table.
+Info: Adding library “switch-omron”, file “${KIPRJMOD}/lib_sch/switch-omron.lib” to project symbol library table.
+Info: Adding library “SW-momentary-btn”, file “${KIPRJMOD}/lib_sch/SW-momentary-btn.lib” to project symbol library table.
+Info: Adding library “apa102c”, file “${KIPRJMOD}/lib_sch/apa102c.lib” to project symbol library table.
+Info: Adding library “MyCapacitors”, file “${KICAD_USER_LIBRARY}/Schematic_Symbols/MyCapacitors.lib” to project symbol library table.
+Info: Adding library “MyConnectors”, file “${KICAD_USER_LIBRARY}/Schematic_Symbols/MyConnectors.lib” to project symbol library table.
+Info: Adding library “MyICs”, file “${KICAD_USER_LIBRARY}/Schematic_Symbols/MyICs.lib” to project symbol library table.
+Info: Adding library “MyLEDs”, file “${KICAD_USER_LIBRARY}/Schematic_Symbols/MyLEDs.lib” to project symbol library table.
+Info: Adding library “MyResistors”, file “${KICAD_USER_LIBRARY}/Schematic_Symbols/MyResistors.lib” to project symbol library table.
+Info: Adding library “MySwitchesButtons”, file “${KICAD_USER_LIBRARY}/Schematic_Symbols/MySwitchesButtons.lib” to project symbol library table.
+Symbol “ATTINY85-20SU” mapped to symbol library “POV-Stick-5050-Rev-A-rescue”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “R_vert” mapped to symbol library “MyResistors”.
+Symbol “C_Small_vert” mapped to symbol library “MyCapacitors”.
+Symbol “C_Small_vert” mapped to symbol library “MyCapacitors”.
+Symbol “R_vert” mapped to symbol library “MyResistors”.
+Symbol “LED_ALT_vert” mapped to symbol library “MyLEDs”.
+Symbol “ISP_Header” mapped to symbol library “MyConnectors”.
+Symbol “01x02_Connector” mapped to symbol library “MyConnectors”.
+Symbol “CP1_Small_vert” mapped to symbol library “MyCapacitors”.
+Symbol “C_Small_vert” mapped to symbol library “MyCapacitors”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “R_vert” mapped to symbol library “MyResistors”.
+Symbol “10-XX_vert” mapped to symbol library “MySwitchesButtons”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “SW_DPDT_x2_horiz” mapped to symbol library “MySwitchesButtons”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “GND” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “+BATT” mapped to symbol library “power”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Symbol “APA102C” mapped to symbol library “apa102c”.
+Info: Symbol library table mapping complete!
