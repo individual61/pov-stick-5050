@@ -1,83 +1,14 @@
 #ifdef BUILD_STICK_1
 
+#include "parameters_common.h"
+#include "stick1/parameters_1.h"
+
+
 // failed penis, constant flashing 
 
 
 
 
-
-
-// filled with second color border
-const uint8_t PROGMEM image1[][10] =
-{
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,2,2,2,0,0},
-	{0,0,0,0,2,1,1,1,2,0},
-	{0,0,0,2,1,1,1,1,1,2},
-	{0,0,2,1,1,1,1,1,1,2},
-	{0,2,1,1,1,1,1,1,2,0},
-	{2,1,1,1,1,1,1,2,0,0},
-	{0,2,1,1,1,1,1,1,2,0},
-	{0,0,2,1,1,1,1,1,1,2},
-	{0,0,0,2,1,1,1,1,1,2},
-	{0,0,0,0,2,1,1,1,2,0},
-	{0,0,0,0,0,2,2,2,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0}
-};
-
-
-// X
-const uint8_t PROGMEM image2[][10] =
-{
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,3,3,0,0,0,0,0,0,0},
-  {3,3,3,3,0,0,0,0,0,0},
-  {3,3,3,3,0,0,0,3,3,0},
-  {3,3,3,3,3,3,3,3,3,3},
-  {0,3,3,3,3,3,3,3,3,3},
-  {3,3,3,3,3,3,3,3,3,3},
-  {3,3,3,3,0,0,0,3,3,0},
-  {3,3,3,3,0,0,0,0,0,0},
-  {0,3,3,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0}
-};
-
-// that's a penis.gif
-/*const uint8_t PROGMEM image2[][10] =
-   {
-        {0,1,1,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,1,0},
-        {1,0,0,0,0,1,0,0,1,0},
-        {1,0,0,0,0,1,0,0,1,0},
-        {1,0,0,0,1,0,0,0,1,0},
-        {0,1,1,1,0,1,0,0,0,1},
-        {1,0,0,0,0,1,0,0,0,1},
-        {1,0,0,0,0,1,0,0,0,1},
-        {1,0,0,0,0,1,0,0,0,1},
-        {0,1,0,0,1,1,0,0,0,1},
-        {0,0,1,1,0,1,0,0,0,1},
-        {0,0,0,0,0,1,0,0,0,1},
-        {0,0,0,0,0,1,0,0,0,1},
-        {0,0,0,0,0,1,0,0,1,1},
-        {0,0,0,0,0,1,1,1,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,1,1,0,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,0,0,0,1,0},
-        {0,0,0,0,0,1,1,1,0,0}
-   };*/
 /*
    ICSP header is, looking down on pins (not looking into female cable):
 
@@ -103,10 +34,7 @@ CRGB leds[NUMPIXELS];
 
 
 uint32_t timeNow = 0;
-uint32_t heartbeatOffInterval = 950;
-uint32_t heartbeatOnInterval = 10;
-uint32_t lastTimeHeartbeatOn = 0;
-uint32_t lastTimeHeartbeatOff = 0;
+
 
 uint32_t prog1_sweepInterval = 0;
 uint32_t prog1_lastTimeSweep = 0;
@@ -115,34 +43,10 @@ uint32_t prog2_sweepInterval = 3;
 uint32_t prog2_lastTimeSweep = 0;
 
 
-uint8_t heartbeatLed = 0;
 
 
 
 
-void setup()
-{
-	if(F_CPU == 16000000)
-	{
-		clock_prescale_set(clock_div_1);
-	}
-
-	pinMode(HEARTBEAT_LED, OUTPUT);
-	pinMode(BUTTON1, INPUT);
-
-	digitalWrite(HEARTBEAT_LED, HIGH);
-
-	FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUMPIXELS)
-	.setCorrection(CORRECTION);
-
-	for(int i = 0; i < NUMPIXELS; i++)
-	{
-		leds[i] = CRGB(16, 0, 16);
-	}
-	FastLED.setBrightness(10);
-	FastLED.show();
-
-}
 
 uint8_t buttonPrevState = 0;
 uint8_t buttonState = 0;
@@ -223,33 +127,11 @@ void program_1(void)
 
 
 
-void loop()
+void loop_1()
 {
 	timeNow = millis();
 	checkButton();
-	if(heartbeatLed == 1)
-	{
-		if(timeNow - lastTimeHeartbeatOn > heartbeatOnInterval)
-		{
-			lastTimeHeartbeatOff = timeNow;
-			heartbeatLed = 0;
-			digitalWrite(HEARTBEAT_LED, LOW);
-
-		}
-	}
-	if(heartbeatLed == 0)
-	{
-		if(timeNow - lastTimeHeartbeatOff > heartbeatOffInterval)
-		{
-			lastTimeHeartbeatOn = timeNow;
-			heartbeatLed = 1;
-			digitalWrite(HEARTBEAT_LED, HIGH);
-		}
-	}
-
-
-
-
+	
 	if(timeNow - prog1_lastTimeSweep > prog1_sweepInterval)
 	{
 		prog1_lastTimeSweep = timeNow;

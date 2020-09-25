@@ -1,6 +1,6 @@
 // This is where we chose what version of the code gets compiled.
 #define BUILD_STICK_1
-//#define BUILD_STICK_2
+// #define BUILD_STICK_2
 //#define BUILD_STICK_3
 
 
@@ -33,85 +33,24 @@
 
 // STICK 2 PROGRAM: SLOW RAINBOW THEN HEARTS
 
-
-
-
-
-
-
-//filled
-const uint8_t PROGMEM image1[][10] =
-{
-  	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,1,1,1,0,0},
-	{0,0,0,0,1,1,1,1,1,0},
-	{0,0,0,1,1,1,1,1,1,1},
-	{0,0,1,1,1,1,1,1,1,1},
-	{0,1,1,1,1,1,1,1,1,0},
-	{1,1,1,1,1,1,1,1,0,0},
-	{0,1,1,1,1,1,1,1,1,0},
-	{0,0,1,1,1,1,1,1,1,1},
-	{0,0,0,1,1,1,1,1,1,1},
-	{0,0,0,0,1,1,1,1,1,0},
-	{0,0,0,0,0,1,1,1,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-	{0,0,0,0,0,0,0,0,0,0},
-  	{0,0,0,0,0,0,0,0,0,0}
-};
-
-// that's a penis.gif
-/*const uint8_t PROGMEM image2[][10] =
-   {
-        {0,1,1,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,1,0},
-        {1,0,0,0,0,1,0,0,1,0},
-        {1,0,0,0,0,1,0,0,1,0},
-        {1,0,0,0,1,0,0,0,1,0},
-        {0,1,1,1,0,1,0,0,0,1},
-        {1,0,0,0,0,1,0,0,0,1},
-        {1,0,0,0,0,1,0,0,0,1},
-        {1,0,0,0,0,1,0,0,0,1},
-        {0,1,0,0,1,1,0,0,0,1},
-        {0,0,1,1,0,1,0,0,0,1},
-        {0,0,0,0,0,1,0,0,0,1},
-        {0,0,0,0,0,1,0,0,0,1},
-        {0,0,0,0,0,1,0,0,1,1},
-        {0,0,0,0,0,1,1,1,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,1,1,0,0,1},
-        {0,0,0,0,1,0,0,0,0,1},
-        {0,0,0,0,1,0,0,0,1,0},
-        {0,0,0,0,0,1,1,1,0,0}
-   };*/
-
-
 CRGB leds[NUMPIXELS];
 
 // with BGR
 // Red coef is green
 // Green coef is blue
-//therefore blue is red
+// therefore blue is red
 
 
 uint32_t timeNow = 0;
-uint32_t heartbeatOffInterval = 950;
-uint32_t heartbeatOnInterval = 10;
+
+uint32_t heartbeatOffInterval = HEARTBEAT_OFF_INTERVAL;
+uint32_t heartbeatOnInterval = HEARTBEAT_ON_INTERVAL;
+
 uint32_t lastTimeHeartbeatOn = 0;
 uint32_t lastTimeHeartbeatOff = 0;
 
-uint32_t prog1_sweepInterval = 0;
-uint32_t prog1_lastTimeSweep = 0;
-
-uint32_t prog2_sweepInterval = 3;
-uint32_t prog2_lastTimeSweep = 0;
-
-
 uint8_t heartbeatLed = 0;
-uint8_t buttonState = 0;
+
 
 
 void setup()
@@ -172,18 +111,16 @@ void program_1(void)
 	}
 };
 
+extern void loop_1();
 
-void program_2(void)
-{
-	FastLED.setBrightness(10);
-	rainbowStart = rainbowStart - 1;
-	fill_rainbow(leds, NUMPIXELS, rainbowStart, rainbowIncrement);
-}
 
 void loop()
 {
+	loop_1();
 	timeNow = millis();
-	buttonState = digitalRead(BUTTON1);
+	
+	
+	// Beat heartbeat LED
 	if(heartbeatLed == 1)
 	{
 		if(timeNow - lastTimeHeartbeatOn > heartbeatOnInterval)
@@ -205,25 +142,17 @@ void loop()
 	}
 
 
+#ifdef BUILD_STICK_1
+//loop_1();
+#endif
 
-	if(!buttonState)
-	{
-		if(timeNow - prog1_lastTimeSweep > prog1_sweepInterval)
-		{
-			prog1_lastTimeSweep = timeNow;
-			program_1();
-			FastLED.show();
-		}
-	}
-	else
-	{
-		if(timeNow - prog2_lastTimeSweep > prog2_sweepInterval)
-		{
-			prog2_lastTimeSweep = timeNow;
-			program_2();
-			FastLED.show();
-		}
-	}
+#ifdef BUILD_STICK_2
+loop_2();
+#endif
+
+#ifdef BUILD_STICK_3
+loop_3();
+#endif
 
 
 }
