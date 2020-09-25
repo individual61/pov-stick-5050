@@ -4,62 +4,65 @@
 //#define BUILD_STICK_3
 
 
-//                                                           
-//                                                           
-//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
-//         
-//                                                  
-//                                                           
-//              ██ ███    ██ ███████  ██████                 
-//              ██ ████   ██ ██      ██    ██                
-//              ██ ██ ██  ██ █████   ██    ██                
-//              ██ ██  ██ ██ ██      ██    ██                
-//              ██ ██   ████ ██       ██████                 
-//                                                           
-//                                                           
-//                                                                                                                    
-//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
-//                                                           
-//    
+
+                                                                                                               
+//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ 
+//                                                                                                                 
+//
+//                                                                                                                 
+//      ██████   ██████  ██    ██     ███████ ████████ ██  ██████ ██   ██     ███████  ██████  ███████  ██████     
+//      ██   ██ ██    ██ ██    ██     ██         ██    ██ ██      ██  ██      ██      ██  ████ ██      ██  ████    
+//      ██████  ██    ██ ██    ██     ███████    ██    ██ ██      █████       ███████ ██ ██ ██ ███████ ██ ██ ██    
+//      ██      ██    ██  ██  ██           ██    ██    ██ ██      ██  ██           ██ ████  ██      ██ ████  ██    
+//      ██       ██████    ████       ███████    ██    ██  ██████ ██   ██     ███████  ██████  ███████  ██████     
+//                                                                                                                 
+//                                                                                                                 
+//                                                                                                                                                                                                                                
+//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ 
+                                                                                                               
+
+  
 
 /* 
-POV Stick 5050: A persistence of vision stick with 10 APA102C RGB LEDs, one button, and a surprise.
-Author: Paul Blackburn, @individual61 on GitHub
-License: CC BY 4.0 (Attribution)
-Github: https://github.com/individual61/pov-stick-5050
-*/
+Description:	POV Stick 5050: A persistence of vision stick with an AtTiny85, 10 APA102C RGB LEDs, one button, and a surprise.
 
-// Typeface for visual blocks is ANSI Regular
-// http://patorjk.com/software/taag/#p=display&h=0&c=c%2B%2B&f=ANSI%20Regular&t=...................%0A%20%20%20%20%20%20%201%0A...................
+Author: 		Paul Blackburn, @individual61 on GitHub
+
+License: 		CC BY 4.0 (Attribution)
+
+Github: 		https://github.com/individual61/pov-stick-5050
+
+Excuses: 		Everything is in one file because I could not resolve a linker issue, 
+         		most likely due to Arduino/PlatformIO particularities. 
+		 		I'd rather not spend more time on it.
 
 
-/*
-   ICSP header is, looking down on pins (not looking into female cable):
+ Misc: 			Typeface for visual blocks is ANSI Regular
+ 				http://patorjk.com/software/taag/#p=display&h=0&c=c%2B%2B&f=ANSI%20Regular&t=...................%0A%20%20%20%20%20%20%201%0A...................
 
-   1  MISO    2 VCC
-   3 SCK      4 MOSI
-   5 RST      6 GND
 
-   ATTiny85:
+Hardware:		The GitHub repo has KiCAD board files and a mostly-correct BOM. Three were made in 2018 using OSHPark boards.
+				Assembled by hand and reflowed with a hacked $30 Target reflow skillet (see my reflow-skillet repo).
+				Programmed using an Adafruit USBTinyISP. 
 
-   1 RST   5 VCC
-   2 NC    6 SCK
-   3 NC    7 MISO
-   4 GND   8 MOSI
+   				ICSP header is, looking down on pins/pads on board (not looking into female cable):
+
+  				 1 MISO    2 VCC
+  				 3 SCK      4 MOSI
+  				 5 RST      6 GND
+
+  				 ATTiny85:
+
+  				 1 RST   5 VCC
+  				 2 NC    6 SCK
+  				 3 NC    7 MISO
+  				 4 GND   8 MOSI
+
 
  */
-
-
-
-
-//                                                           
-//                                                           
-//                                                           
-//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ 
-//                                                           
-//                                                           
-//                                                           
-//     
+                                                        
+//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ 
+     
 
 
 #include <Arduino.h>
@@ -84,8 +87,8 @@ CRGB leds[NUMPIXELS];
 // therefore blue is red
 
                                                         
-//                                                           
-//                                                           
+                                                        
+                                                       
 //  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
 //                                                           
 //  
@@ -101,9 +104,10 @@ CRGB leds[NUMPIXELS];
 //  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
 //                                                                                                                            
 //                   failed penis, constant flashing 
+//
+#ifdef BUILD_STICK_1 
 
 
-#ifdef BUILD_STICK_1
 
 uint32_t prog1_sweepInterval = 0;
 uint32_t prog1_lastTimeSweep = 0;
@@ -199,13 +203,7 @@ void loop_1()
 	}
 }
 
-#endif
-
-                                                                
-//                                                           
-//                                                           
-//                                                           
-//                                                           
+#endif // #ifdef BUILD_STICK_1                                                   
 //  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
 //                                                           
 //      
@@ -221,9 +219,9 @@ void loop_1()
 //  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
 //                                                                                                                         
 //                      SLOW RAINBOW THEN HEARTS                                       
-
-
 #ifdef BUILD_STICK_2
+
+
 
 uint32_t prog1_sweepInterval = 0;
 uint32_t prog1_lastTimeSweep = 0;
@@ -297,11 +295,11 @@ void loop_2(void)
 	}
 }
 
-#endif
+
 
                                                                 
 //                                                           
-//                                                           
+#endif // #ifdef BUILD_STICK_2                                                       
 //  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
 //                                                           
 //        
@@ -315,10 +313,10 @@ void loop_2(void)
 //                                                           
 //                                                                                                         
 //  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
-//                                                           
-//                                             
+#ifdef BUILD_STICK_3                                                      
+                                     
 
-#ifdef BUILD_STICK_3
+
 
 void loop_3(void)
 {
@@ -326,23 +324,22 @@ void loop_3(void)
 
 }
 
-#endif
-
-                                                                
-//    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
-//   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
-//
-//                                    _                             
-//                                   (_)                            
-//                _ __ ___     __ _   _   _ __                      
-//               | '_ ` _ \   / _` | | | | '_ \                     
-//               | | | | | | | (_| | | | | | | |                    
-//               |_| |_| |_|  \__,_| |_| |_| |_|      
-//
-//    _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _ 
-//   (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_) (_)
-//                                                                  
-//                                           
+#endif // #ifdef BUILD_STICK_3                                                        
+//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
+//                                                           
+//       
+//                                                    
+//              ███    ███  █████  ██ ███    ██              
+//              ████  ████ ██   ██ ██ ████   ██              
+//              ██ ████ ██ ███████ ██ ██ ██  ██              
+//              ██  ██  ██ ██   ██ ██ ██  ██ ██              
+//              ██      ██ ██   ██ ██ ██   ████              
+//                                                           
+//                                                           
+//                                                                                                                 
+//  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██
+//                                                           
+//                                          
 
 
 void setup()
