@@ -152,6 +152,7 @@ void program_1(void)
 			FastLED.setBrightness(180);
 			image_value = pgm_read_byte(&(image2[column_index][row_index]));
 		}
+
 		if (image_value == 0)
 		{
 			leds[row_index] = CRGB(0, 0, 0);
