@@ -57,10 +57,7 @@ void loop_3(void);
 
 
 
-
-
-
-#define DEBOUNCEDELAY 50 //????????
+#define DEBOUNCEDELAY 200 //50 is like within a sweep
 
 // filled with second color border
 #define IMAGE1_WIDTH 17

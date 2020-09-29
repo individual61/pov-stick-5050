@@ -107,6 +107,7 @@ uint8_t buttonState = 0;
 uint32_t timeNowbutton = 0;
 uint32_t lastTimePressedButton = 0;
 uint8_t displayAlternateImage = 0;
+uint8_t displayAlternateImageRequest = 0;
 void checkButton(void)
 {
 	bool buttonState = digitalRead(BUTTON1);
@@ -115,7 +116,9 @@ void checkButton(void)
 		timeNowbutton = millis();
 		if (timeNowbutton - lastTimePressedButton > DEBOUNCEDELAY)
 		{
-			displayAlternateImage = 1;
+			//displayAlternateImage = 1;
+			//Instead of immediately starting the alternate 
+			displayAlternateImageRequest = 1;
 			lastTimePressedButton = timeNowbutton;
 		}
 	}
@@ -153,6 +156,9 @@ void program_1(void)
 			image_value = pgm_read_byte(&(image2[column_index][row_index]));
 		}
 
+		// Remember at this point the 10 LEDs have a rainbow on them.
+
+		// Blank out LED if image has 0.
 		if (image_value == 0)
 		{
 			leds[row_index] = CRGB(0, 0, 0);
@@ -180,7 +186,11 @@ void program_1(void)
 	{
 		if (column_index == IMAGE2_WIDTH)
 		{
+			// If we are displaying the alternate image and we are at the end of the alternate image, 
+			// clear the alternate image flag, and also the alternate image request flag 
+			// though at this point it should be cleared already
 			displayAlternateImage = 0;
+			displayAlternateImageRequest = 0;
 			column_index = 0;
 		}
 	}
@@ -189,6 +199,15 @@ void program_1(void)
 		if (column_index == IMAGE1_WIDTH)
 		{
 			column_index = 0;
+			if(displayAlternateImageRequest == 1)
+			{
+				// If we are at the end of regular image, and we have requested 
+				// the alternate image, then turn on alternate image
+				// and clear alternate image request
+				displayAlternateImage = 1;
+				displayAlternateImageRequest = 0;
+
+			}
 		}
 	}
 };
